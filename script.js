@@ -51,6 +51,8 @@ let currentUser = null;
 let currentSearchedWord = "";
 let gameScore = localStorage.getItem("gameScore") ? parseInt(localStorage.getItem("gameScore")) : 0;
 let currentGameWord = "";
+let currentMCQOptions = [];
+let selectedMCQChoice = "";
 
 // AUTH
 window.signUp = async function () {
@@ -368,11 +370,16 @@ window.loadFavorites = async function () {
 
 // GAME
 const gameWords = [
-  { word: "apple", hint: "A fruit" },
-  { word: "code", hint: "Instructions for a computer" },
-  { word: "learn", hint: "To gain knowledge" },
-  { word: "dictionary", hint: "A tool for meanings" },
-  { word: "science", hint: "Study of the natural world" }
+  { word: "apple", hint: "A red fruit often found in pies", options: ["apple", "banana", "orange", "pear"] },
+  { word: "ocean", hint: "A very large body of salt water", options: ["ocean", "lake", "river", "pond"] },
+  { word: "planet", hint: "A large sphere that orbits a star", options: ["planet", "comet", "rocket", "satellite"] },
+  { word: "python", hint: "A programming language named after a snake", options: ["python", "java", "ruby", "swift"] },
+  { word: "dictionary", hint: "A tool for definitions", options: ["dictionary", "novel", "magazine", "journal"] },
+  { word: "science", hint: "Study of the natural world", options: ["science", "art", "music", "history"] },
+  { word: "coffee", hint: "A warm drink made from beans", options: ["coffee", "tea", "juice", "water"] },
+  { word: "mountain", hint: "A tall natural elevation", options: ["mountain", "hill", "river", "valley"] },
+  { word: "library", hint: "A place where books are kept", options: ["library", "school", "museum", "park"] },
+  { word: "music", hint: "Organized sounds that people enjoy", options: ["music", "noise", "traffic", "silence"] }
 ];
 
 function updateGameScore() {
@@ -387,34 +394,78 @@ window.startGame = function () {
   const msgEl = document.getElementById("gameMessage");
   const ansEl = document.getElementById("gameAnswer");
   const inputEl = document.getElementById("gameInput");
+  const mcqEl = document.getElementById("mcqOptions");
 
-  if (!hintEl || !msgEl || !inputEl || !ansEl) return;
+  if (!hintEl || !msgEl || !inputEl || !ansEl || !mcqEl) return;
 
   const randomItem = gameWords[Math.floor(Math.random() * gameWords.length)];
   currentGameWord = randomItem.word;
+  currentMCQOptions = randomItem.options || [];
+  selectedMCQChoice = "";
 
   hintEl.innerText = "Hint: " + randomItem.hint;
   msgEl.innerText = "";
   ansEl.innerText = "";
   inputEl.value = "";
+  inputEl.placeholder = currentMCQOptions.length > 0 ? "Select an option or type your answer..." : "Type your answer here...";
+
+  renderMCQOptions(currentMCQOptions);
   updateGameScore();
 };
 
-window.checkGameAnswer = function () {
-  const inputEl = document.getElementById("gameInput");
-  const msgEl = document.getElementById("gameMessage");
-  const ansEl = document.getElementById("gameAnswer");
+window.nextQuestion = function () {
+  window.startGame();
+};
 
-  if (!inputEl || !msgEl || !ansEl) return;
+function renderMCQOptions(options) {
+  const mcqEl = document.getElementById("mcqOptions");
+  if (!mcqEl) return;
 
-  const answer = inputEl.value.trim().toLowerCase();
+  mcqEl.innerHTML = "";
 
-  if (!answer) {
-    msgEl.innerText = "Type an answer first.";
+  if (!options || options.length === 0) {
     return;
   }
 
-  if (answer === currentGameWord) {
+  options.forEach((option) => {
+    const optionButton = document.createElement("button");
+    optionButton.type = "button";
+    optionButton.className = "button mcq-option";
+    optionButton.innerText = option;
+    optionButton.onclick = () => window.selectMCQOption(option);
+    mcqEl.appendChild(optionButton);
+  });
+}
+
+window.selectMCQOption = function (choice) {
+  const inputEl = document.getElementById("gameInput");
+  const msgEl = document.getElementById("gameMessage");
+  if (!inputEl || !msgEl) return;
+
+  selectedMCQChoice = choice;
+  inputEl.value = choice;
+  msgEl.innerText = "Selected: " + choice;
+  window.checkGameAnswer(choice);
+};
+
+window.checkGameAnswer = function (selectedOption) {
+  const inputEl = document.getElementById("gameInput");
+  const msgEl = document.getElementById("gameMessage");
+  const ansEl = document.getElementById("gameAnswer");
+  const mcqEl = document.getElementById("mcqOptions");
+
+  if (!inputEl || !msgEl || !ansEl || !mcqEl) return;
+
+  const answer = (selectedOption || inputEl.value).trim().toLowerCase();
+
+  if (!answer) {
+    msgEl.innerText = "Type or select an answer first.";
+    return;
+  }
+
+  const isCorrect = answer === currentGameWord.toLowerCase();
+
+  if (isCorrect) {
     gameScore++;
     msgEl.innerText = "Correct!";
   } else {
@@ -422,10 +473,24 @@ window.checkGameAnswer = function () {
   }
 
   ansEl.innerText = "Correct Answer: " + currentGameWord;
-  // Save game score to localStorage for persistence
   localStorage.setItem("gameScore", gameScore);
   updateGameScore();
+  markMCQAnswers(answer, isCorrect);
 };
+
+function markMCQAnswers(answer, isCorrect) {
+  const mcqButtons = document.querySelectorAll(".mcq-option");
+  mcqButtons.forEach((button) => {
+    const btnText = button.innerText.trim().toLowerCase();
+    button.classList.remove("correct", "wrong");
+
+    if (btnText === currentGameWord.toLowerCase()) {
+      button.classList.add("correct");
+    } else if (btnText === answer && !isCorrect) {
+      button.classList.add("wrong");
+    }
+  });
+}
 
 window.showAnswer = function () {
   const ansEl = document.getElementById("gameAnswer");

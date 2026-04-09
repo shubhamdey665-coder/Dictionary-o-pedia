@@ -142,12 +142,40 @@ input {
   background: #2563eb;
 }
 
-  .google-btn {
-    background: #4285f4;
-    color: white;
+  .mcq-options {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    margin: 15px 0;
   }
 
-  .google-btn:hover {
+  .mcq-option {
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 2px solid #1e293b;
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .mcq-option:hover {
+    transform: scale(1.02);
+    background: #2563eb;
+  }
+
+  .mcq-option.correct {
+    background: #16a34a;
+    border-color: #15803d;
+  }
+
+  .mcq-option.wrong {
+    background: #dc2626;
+    border-color: #b91c1c;
+  }
+
     background: #3367d6;
   }
 

@@ -21,9 +21,10 @@
     <div class="section game-box">
       <div class="game-area">
         <div id="gameHint" class="game-hint">Hint: Loading...</div>
+        <div id="mcqOptions" class="mcq-options"></div>
         <input type="text" id="gameInput" placeholder="Type your answer here..." />
         <div class="button-row">
-          <button class="button" onclick="startGame()">Start New Game</button>
+          <button class="button" onclick="nextQuestion()">Next Question</button>
           <button class="button" onclick="checkGameAnswer()">Check Answer</button>
           <button class="button" onclick="showAnswer()">Show Answer</button>
         </div>
@@ -36,8 +37,9 @@
     <div class="section">
       <h2>How to Play</h2>
       <ul>
-        <li>Click "Start New Game" to get a new word with a hint</li>
-        <li>Type your guess and click "Check Answer"</li>
+        <li>Click "Next Question" to get a new word with a hint</li>
+        <li>If multiple choice options appear, click the right answer</li>
+        <li>Or type your guess and then click "Check Answer"</li>
         <li>Gain 1 point for each correct answer</li>
         <li>Your score is saved and persists across sessions</li>
       </ul>
