@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DICTIONARY-O-PEDIA | Signup / Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="petal-container" id="petalContainer"></div>
+
+  <div class="box">
+    <h1>Authentication</h1>
+    <p class="subtitle">Create an account or login to save your favorites and feedback.</p>
+
+    <div class="section auth-box">
+      <div class="auth-form">
+        <h2>Email & Password</h2>
+        <input type="email" id="email" placeholder="Enter your email" />
+        <input type="password" id="password" placeholder="Enter your password" />
+        <div class="button-row">
+          <button class="button" onclick="signUp()">Sign Up</button>
+          <button class="button" onclick="logIn()">Log In</button>
+          <button class="button" onclick="logOut()">Log Out</button>
+        </div>
+        <p id="authMessage"></p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>User Status</h2>
+      <p id="userStatus">Not logged in</p>
+    </div>
+
+    <div class="section">
+      <h2>Navigate</h2>
+      <div class="nav-links">
+        <a class="button link-btn" href="index.html">Home</a>
+        <a class="button link-btn" href="dictionary.html">Search Dictionary</a>
+        <a class="button link-btn" href="game.html">Mini Game</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

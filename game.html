@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DICTIONARY-O-PEDIA | Mini Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="petal-container" id="petalContainer"></div>
+
+  <div class="box">
+    <h1>Word Guessing Game</h1>
+    <p class="subtitle">Guess the word based on the hint and earn points!</p>
+
+    <div class="section game-box">
+      <h2>Game Instructions</h2>
+      <p>Read the hint and try to guess the word. You can earn points for each correct answer!</p>
+    </div>
+
+    <div class="section game-box">
+      <div class="game-area">
+        <div id="gameHint" class="game-hint">Hint: Loading...</div>
+        <input type="text" id="gameInput" placeholder="Type your answer here..." />
+        <div class="button-row">
+          <button class="button" onclick="startGame()">Start New Game</button>
+          <button class="button" onclick="checkGameAnswer()">Check Answer</button>
+          <button class="button" onclick="showAnswer()">Show Answer</button>
+        </div>
+        <p id="gameMessage"></p>
+        <p id="gameAnswer"></p>
+        <p id="gameScore">Score: 0</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>How to Play</h2>
+      <ul>
+        <li>Click "Start New Game" to get a new word with a hint</li>
+        <li>Type your guess and click "Check Answer"</li>
+        <li>Gain 1 point for each correct answer</li>
+        <li>Your score is saved and persists across sessions</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Navigate</h2>
+      <div class="nav-links">
+        <a class="button link-btn" href="index.html">Home</a>
+        <a class="button link-btn" href="auth.html">Signup / Login</a>
+        <a class="button link-btn" href="dictionary.html">Search Dictionary</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
