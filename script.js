@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   getFirestore,
@@ -41,6 +43,7 @@ function escapeHtml(text) {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
 let currentUser = null;
@@ -109,6 +112,18 @@ window.logOut = async function () {
     if (authMessage) authMessage.innerText = "Logged out successfully";
   } catch (error) {
     console.log("LOGOUT ERROR:", error.code, error.message);
+    if (authMessage) authMessage.innerText = error.message;
+  }
+};
+
+window.googleSignIn = async function () {
+  const authMessage = document.getElementById("authMessage");
+
+  try {
+    await signInWithPopup(auth, provider);
+    if (authMessage) authMessage.innerText = "Google login successful";
+  } catch (error) {
+    console.log("GOOGLE LOGIN ERROR:", error.code, error.message);
     if (authMessage) authMessage.innerText = error.message;
   }
 };

@@ -142,12 +142,15 @@ input {
   background: #2563eb;
 }
 
-.button-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
+  .google-btn {
+    background: #4285f4;
+    color: white;
+  }
+
+  .google-btn:hover {
+    background: #3367d6;
+  }
+
 
 .nav-links {
   display: flex;
