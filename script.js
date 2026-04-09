@@ -537,4 +537,21 @@ window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("gameHint")) {
     window.startGame();
   }
+
+  // Add flip animation for page transitions
+  const linkButtons = document.querySelectorAll('.link-btn');
+  linkButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const box = document.querySelector('.box');
+      if (box) {
+        box.classList.add('flip-out');
+        box.addEventListener('animationend', () => {
+          window.location.href = btn.href;
+        }, { once: true });
+      } else {
+        window.location.href = btn.href;
+      }
+    });
+  });
 });
