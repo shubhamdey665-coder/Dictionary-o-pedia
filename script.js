@@ -44,6 +44,7 @@ function escapeHtml(text) {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
 const db = getFirestore(app);
 
 let currentUser = null;
