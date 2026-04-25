@@ -16,12 +16,13 @@
 
 ---
 
-## 🎥 Live Demo (Animated GIF)
+### 🚀 Live Demo
 
 <p align="center">
-  <img src="https://media.giphy.com/media/coxQHKASG60HrHtvkt/giphy.gif" width="750"/>
+  <a href="https://shubhamdey665-coder.github.io/Dictionary-o-pedia/" target="_blank">
+    <img src="https://img.shields.io/badge/Click%20Here-Live%20Demo-00C853?style=for-the-badge&logo=google-chrome&logoColor=white"/>
+  </a>
 </p>
-
 ---
 
 ## ✨ Features
